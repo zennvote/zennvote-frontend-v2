@@ -1,0 +1,22 @@
+@import '../styles/utils.scss';
+
+.navigator {
+  display: flex;
+  flex-direction: column;
+
+  .item {
+    margin: 15px 0;
+    color: $grey;
+
+    font-size: 25px;
+    text-decoration: none;
+
+    &:link, &:visited {
+      color: $grey;
+    }
+    
+    &.active {
+      color: $white;
+    }
+  }
+}
