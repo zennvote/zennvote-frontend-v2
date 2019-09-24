@@ -6,6 +6,7 @@ import store from './core/redux';
 
 import Main from './container/Main';
 import Overview from './container/Overview';
+import Apply from './container/Apply';
 import Navigator from './components/Navigator';
 
 import './App.scss';
@@ -21,6 +22,7 @@ const App = () => (
             <Switch>
               <Route exact path="/" component={Main} />
               <Route path="/overview" component={Overview} />
+              <Route path="/apply" component={Apply} />
             </Switch>
           </div>
         </div>

@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
+import '../../styles/routes.scss';
 import './OverviewContents.scss';
 
 const OverViewContents = () => (
-  <div className="OverviewContent">
+  <div className="ContentWrap">
     <div className="title">
       안내사항
     </div>

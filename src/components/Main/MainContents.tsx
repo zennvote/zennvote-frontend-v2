@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import './MainContents.scss';
+// import '../../styles/routes.scss';
+// import './MainContents.scss';
 
 const MainContents = () => (
-  <div className="MainContent">
+  <div className="ContentWrap">
     <div className="title">
       전국 프로듀서 노래자랑
       <div className="subtitle">
