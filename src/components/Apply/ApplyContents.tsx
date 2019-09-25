@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
 import '../../styles/routes.scss';
@@ -10,6 +10,7 @@ class ApplyContents extends Component {
     email: '',
     password: '',
     correctPassword: '',
+    data: {},
   };
 
   handleEmailChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -34,21 +35,15 @@ class ApplyContents extends Component {
     this.setState({
       correctPassword: newCorrectPassword,
     });
-    console.log(this.state);
   }
 
   postUserinfomation = async () => {
-    const { email, password } = this.state;
+    const { email, password, data } = this.state;
     try {
-      console.log('이잉 테스트~~~');
-      Axios.post('http://vote020.dev-shift.me:3000/api/auth/login', {
-        params: {
-          email,
-          password,
-        },
-      });
+      Axios.post('http://vote020.dev-shift.me:3000/api/vote', { email, password, data });
+      Axios.post('http://vote020.dev-shift.me:3000/api/auth/login', { email, password });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
