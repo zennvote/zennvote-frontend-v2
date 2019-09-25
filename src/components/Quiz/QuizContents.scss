@@ -1,0 +1,15 @@
+@import '../../styles/utils.scss';
+
+.hidden {
+  display: none;
+}
+
+// 위 .hidden은 임시. 설명 파트는 SCSS 없고 이 아래 코드는 전부 다 퀴즈 문제에 대한 CSS임.
+.quiz-title {
+  font-family: 'S-CoreDream-5';
+  font-size: 23px;
+}
+
+.quiz-selection {
+  margin: 20px 0;
+}
