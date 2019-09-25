@@ -1,10 +1,7 @@
 import { createStore, combineReducers, Store } from 'redux';
 import {} from 'redux-devtools-extension';
-import MainReducer from './Main/state';
 
-const combineReducer = combineReducers({
-  MainReducer,
-});
+const combineReducer = combineReducers({});
 
 const store: Store = createStore(
   combineReducer,

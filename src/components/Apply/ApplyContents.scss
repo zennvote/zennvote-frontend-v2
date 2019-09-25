@@ -1,0 +1,46 @@
+@import '../../styles/utils.scss';
+
+form {
+  margin: 10px 0;
+}
+
+input {
+  width: 100%;
+  height: auto;
+  padding: 12px 15px;
+  margin: 10px 0;
+  box-sizing: border-box;
+
+  background-color: #EFE7E750;
+  border: 2px solid $white;
+  border-radius: 10px;
+
+  color: $white;
+  font-size: 20px;
+  font-family: 'S-CoreDream-3';
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #eee6e680;
+  }
+
+  &.error {
+    background-color: #ba313a50;
+    border-color: $light-red;
+
+    &::placeholder {
+      color: #ff3a5b80;
+    }
+  }
+}
+
+.error {
+  color: $light-red;
+}
+
+.form-message {
+  font-size: 17px;
+}

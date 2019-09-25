@@ -1,0 +1,53 @@
+@import './utils.scss';
+
+.ContentWrap {
+  display: flex;
+  flex-direction: column;
+  margin-top: 70px;
+
+  .title {
+    font-size: 60px;
+    font-family: 'S-CoreDream-5';
+
+    display: flex;
+    flex-direction: column;
+
+    .subtitle {
+      font-family: 'S-CoreDream-3';
+      margin-top: -10px;
+    }
+  }
+
+  .contour {
+    width: 100%;
+    border: solid 1px $white;
+    margin: 20px 0;
+  }
+
+  .article {
+    font-size: 23px;
+
+    b {
+      font-family: 'S-CoreDream-5';
+      font-weight: normal;
+    }
+  }
+
+  .next {
+    margin-left: auto;
+    width: 180px;
+    padding: 10px 0;
+
+    color: $grey;
+    border: solid 3px $white;
+    border-radius: 30px;
+
+    font-size: 20px;
+    font-family: 'S-CoreDream-3';
+    text-align: center;
+    text-decoration: none;
+    &:link, &:visited {
+      color: $white;
+    }
+  }
+}
