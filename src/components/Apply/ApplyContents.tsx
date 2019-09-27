@@ -1,45 +1,57 @@
-import React, { useReducer } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
 import '../../styles/routes.scss';
 import './ApplyContents.scss';
 
-function reducer(state: any, action: any) {
-  return {
-    ...state,
-    [action.name]: action.value,
-  };
-}
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
+
+require('dotenv').config();
 
 const ApplyContents = () => {
-  const [state, dispatch] = useReducer(reducer, {
-    email: '',
-    password: '',
-    correctPassword: '',
-    data: {},
-  });
-  const {
-    email,
-    password,
-    correctPassword,
-    data,
-  } = state;
+  const domain = process.env.REACT_APP_SERVER_URL;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [correctPassword, setCorrectPassword] = useState('');
+  const [islogin, setloginChecker] = useState(false);
 
-  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-    dispatch(e.target);
-    console.log(e.target);
+  const loginChecker = () => {
+    const emailRegExp = /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/;
+    const isSame = password === correctPassword;
+    console.log(email.match(emailRegExp));
+    if (email.match(emailRegExp)) {
+      if (password.length >= 5) {
+        if (isSame !== islogin) {
+          setloginChecker(isSame);
+        }
+      }
+    }
   };
-
+  const onChangeEmail = (e: ChangeEvent) => {
+    setEmail(e.target.value);
+  };
+  const onChangePassword = (e: ChangeEvent) => {
+    setPassword(e.target.value);
+    loginChecker();
+  };
+  const onChangecorrectPassword = (e: ChangeEvent) => {
+    setCorrectPassword(e.target.value);
+    loginChecker();
+  };
   const postUserinfomation = async () => {
     try {
-      Axios.post('http://vote020.dev-shift.me:3000/api/vote', { email, password, data });
-      Axios.post('http://vote020.dev-shift.me:3000/api/auth/login', { email, password });
-      console.log(state);
+      Axios.post(`${domain}/api/vote`, { email, password, data: {} });
+      Axios.post(`${domain}/api/auth/login`, { email, password });
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(loginChecker, [password, correctPassword, email]);
+  useEffect(() => {
+    console.log(`loginEnable: ${islogin}`);
+  }, [islogin]);
 
   return (
     <div className="ContentWrap">
@@ -53,14 +65,13 @@ const ApplyContents = () => {
         해당 이메일로 음원 다운로드 링크가 제공됩니다!<br />
       </div>
       <form action="post">
-        <input name="email" value={email} type="text" placeholder="이메일" onChange={onChange} />
-        <input name="password" value={password} type="password" placeholder="비밀번호" onChange={onChange} />
-        <input name="correctPassword" value={correctPassword} type="password" placeholder="비밀번호 확인" onChange={onChange} />
+        <input type="email" placeholder="이메일" onChange={onChangeEmail} />
+        <input value={password} type="password" placeholder="비밀번호" onChange={onChangePassword} />
+        <input value={correctPassword} type="password" placeholder="비밀번호 확인" onChange={onChangecorrectPassword} minLength={5} />
         <div className="form-message" />
+        {(password !== '' && password.length < 5) && '비밀번호는 5자리 이상으로 해주세욤'}
       </form>
-      {
-        password === correctPassword && <Link to="/quiz" className="next" onClick={postUserinfomation}>투표 등록</Link>
-      }
+      <Link to="/quiz" className={islogin ? 'next' : 'disabled-link'} onClick={postUserinfomation}> 투표 등록</Link>
     </div>
   );
 };
