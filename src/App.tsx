@@ -8,6 +8,7 @@ import Main from './container/Main';
 import Overview from './container/Overview';
 import Apply from './container/Apply';
 import Quiz from './container/Quiz';
+import SectionVote from './container/SectionVote';
 import Navigator from './components/Navigator';
 
 import './App.scss';
@@ -24,6 +25,7 @@ const App = () => (
               <Route path="/overview" component={Overview} />
               <Route path="/apply" component={Apply} />
               <Route path="/quiz" component={Quiz} />
+              <Route path="/vote/section" component={SectionVote} />
             </Switch>
           </div>
         </div>
