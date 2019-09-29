@@ -44,22 +44,3 @@ input {
 .form-message {
   font-size: 17px;
 }
-
-.disabled-link {
-  margin-left: auto;
-  width: 180px;
-  padding: 10px 0;
-
-  color: $grey;
-  border: solid 3px $white;
-  border-radius: 30px;
-
-  font-size: 20px;
-  font-family: 'S-CoreDream-3';
-  text-align: center;
-  text-decoration: none;
-  &:link, &:visited {
-    color: $white;
-  }
-  pointer-events: none;
-}
