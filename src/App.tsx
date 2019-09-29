@@ -18,7 +18,6 @@ const App = () => (
       <div className="page-wrapper">
         <Navigator />
         <div className="main-wrapper">
-          <div className="copyright">created by team. zennvote</div>
           <div className="content">
             <Switch>
               <Route exact path="/" component={Main} />
@@ -28,6 +27,7 @@ const App = () => (
             </Switch>
           </div>
         </div>
+        <div className="copyright">created by team. zennvote</div>
       </div>
     </BrowserRouter>
   </Provider>
