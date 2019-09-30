@@ -1,87 +1,79 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
 import '../../styles/routes.scss';
 import './ApplyContents.scss';
 
-class ApplyContents extends Component {
-  state = {
-    email: '',
-    password: '',
-    correctPassword: '',
-    data: {},
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
+
+require('dotenv').config();
+
+const ApplyContents = () => {
+  const domain = process.env.REACT_APP_SERVER_URL;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [correctPassword, setCorrectPassword] = useState('');
+  const [islogin, setloginChecker] = useState(false);
+  const emailRegExp = /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/;
+
+  const loginChecker = () => {
+    const isSame = password === correctPassword;
+    if (email.match(emailRegExp)) {
+      if (password.length >= 5) {
+        if (isSame !== islogin) {
+          setloginChecker(isSame);
+        }
+      }
+    }
   };
-
-  handleEmailChange = (event: React.FormEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const newEmail = event.currentTarget.value;
-    this.setState({
-      email: newEmail,
-    });
-  }
-
-  handlePasswordChange = (event: React.FormEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const newPassword = event.currentTarget.value;
-    this.setState({
-      password: newPassword,
-    });
-  }
-
-  handleCorrectPasswordChange = (event: React.FormEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const newCorrectPassword = event.currentTarget.value;
-    this.setState({
-      correctPassword: newCorrectPassword,
-    });
-  }
-
-  postUserinfomation = async () => {
-    const { email, password, data } = this.state;
+  const onChangeEmail = (e: ChangeEvent) => {
+    setEmail(e.target.value);
+  };
+  const onChangePassword = (e: ChangeEvent) => {
+    setPassword(e.target.value);
+    loginChecker();
+  };
+  const onChangecorrectPassword = (e: ChangeEvent) => {
+    setCorrectPassword(e.target.value);
+    loginChecker();
+  };
+  const postUserinfomation = async () => {
     try {
-      Axios.post('http://vote020.dev-shift.me:3000/api/vote', { email, password, data });
-      Axios.post('http://vote020.dev-shift.me:3000/api/auth/login', { email, password });
+      const voteRequest = await Axios.post(`${domain}/api/vote`, { email, password, data: {} });
+      const loginRequest = await Axios.post(`${domain}/api/auth/login`, { email, password });
     } catch (error) {
       console.error(error);
     }
-  }
+  };
+  useEffect(loginChecker, [password, correctPassword, email]);
+  useEffect(() => {
+    console.log(`loginEnable: ${islogin}`);
+  }, [islogin]);
 
-  render() {
-    const {
-      email,
-      password,
-      correctPassword,
-    } = this.state;
-    const {
-      handleEmailChange,
-      handlePasswordChange,
-      handleCorrectPasswordChange,
-      postUserinfomation,
-    } = this;
-    return (
-      <div className="ContentWrap">
-        <div className="title">
-          투표 등록
-        </div>
-        <hr className="contour" />
-        <div className="article">
-          이메일은 중복 투표 방지용으로, 수집되지 않습니다.<br />
-          또한 닉네임과 연결지어 누구인지 확인하지도 않습니다.<br />
-          해당 이메일로 음원 다운로드 링크가 제공됩니다!<br />
-        </div>
-        <form action="post">
-          <input value={email} type="text" placeholder="이메일" onChange={handleEmailChange} />
-          <input value={password} type="password" placeholder="비밀번호" onChange={handlePasswordChange} />
-          <input value={correctPassword} type="password" placeholder="비밀번호 확인" onChange={handleCorrectPasswordChange} />
-          <div className="form-message" />
-        </form>
-        {
-          password === correctPassword && <Link to="/quiz" className="next" onClick={postUserinfomation}>투표 등록</Link>
-        }
+  return (
+    <div className="ContentWrap">
+      <div className="title">
+        투표 등록
       </div>
-    );
-  }
-}
+      <hr className="contour" />
+      <div className="article">
+        이메일은 중복 투표 방지용으로, 수집되지 않습니다.<br />
+        또한 닉네임과 연결지어 누구인지 확인하지도 않습니다.<br />
+        해당 이메일로 음원 다운로드 링크가 제공됩니다!<br />
+      </div>
+      <form action="post">
+        <input className={(email === '' || email.match(emailRegExp)) ? 'email' : 'error'} type="email" placeholder="이메일" onChange={onChangeEmail} />
+        {(email !== '' && !email.match(emailRegExp)) && '이메일 형식을 지켜주세욤'}
+        <input className={(password !== '' && password.length < 5) ? 'error' : 'password'} value={password} type="password" placeholder="비밀번호" onChange={onChangePassword} />
+        {(password !== '' && password.length < 5) && '비밀번호는 5자리 이상으로 해주세욤'}
+        <input className={(password === correctPassword) ? 'correctPassword' : 'error'} value={correctPassword} type="password" placeholder="비밀번호 확인" onChange={onChangecorrectPassword} minLength={5} />
+        <div className="form-message" />
+        {((password !== '' || correctPassword !== '') && password !== correctPassword) && '비밀번호와 일치안하는대용'}
+      </form>
+      <Link to="/quiz" className={islogin ? 'next' : 'disabled-link'} onClick={postUserinfomation}> 투표 등록</Link>
+    </div>
+  );
+};
 
 export default ApplyContents;
