@@ -3,18 +3,13 @@ import queryParser from 'query-string';
 
 import QuizContent from '../components/Quiz/QuizContents';
 import QuizOverview from '../components/Quiz/QuizOverview';
-import RadioGroup from '../components/Radio/RadioGroup';
 
 const getOverview = () => (
-  <div className="Quiz">
-    <QuizOverview />
-  </div>
+  <QuizOverview />
 );
 
 const getContent = (index: number) => (
-  <div className="Quiz">
-    <QuizContent index={index} />
-  </div>
+  <QuizContent index={index} />
 );
 
 const Main = ({ location, match }: any) => {

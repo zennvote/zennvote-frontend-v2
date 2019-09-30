@@ -1,0 +1,25 @@
+@import '../../../styles/utils.scss';
+
+.ant-checkbox-group {
+  margin: 10px 0;
+
+  label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    color: $white;
+    font-family: 'S-CoreDream-3';
+    font-size: 20px;
+
+    margin: 20px;
+    margin-left: 0;
+
+    .ant-checkbox {
+      height: 18px;
+      width: 18px;
+
+      margin-right: 5px;
+    }
+  }
+}

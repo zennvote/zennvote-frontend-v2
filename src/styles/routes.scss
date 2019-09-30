@@ -3,7 +3,9 @@
 .ContentWrap {
   display: flex;
   flex-direction: column;
-  margin-top: 70px;
+  justify-content: center;
+  margin-top: 30px;
+  height: 100%;
 
   .title {
     font-size: 60px;
@@ -26,6 +28,9 @@
 
   .article {
     font-size: 23px;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
 
     b {
       font-family: 'S-CoreDream-5';

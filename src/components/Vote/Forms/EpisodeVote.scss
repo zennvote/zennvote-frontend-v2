@@ -1,0 +1,20 @@
+.episodeVoteWrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  margin-left: auto;
+
+  width: 50%;
+
+  font-size: 28px;
+
+  p {
+    margin: 0 20px;
+  }
+
+  input {
+    text-align: center;
+    font-size: 20px;
+  }
+}
