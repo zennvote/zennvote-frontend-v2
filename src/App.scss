@@ -19,6 +19,14 @@
     margin: auto 0;
     margin-left: 100px;
   }
+
+  .copyright {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 3px 10px;
+    color: $grey;
+  }
 }
 
 .main-wrapper {
@@ -30,12 +38,7 @@
 
   .content {
     width: 80%;
+    height: 80%;
     margin: auto 0;
-  }
-
-  .copyright {
-    margin-left: auto;
-    padding: 3px 10px;
-    color: $grey;
   }
 }
