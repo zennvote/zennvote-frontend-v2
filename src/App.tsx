@@ -25,7 +25,7 @@ const App = () => (
               <Route path="/overview" component={Overview} />
               <Route path="/apply" component={Apply} />
               <Route path="/quiz" component={Quiz} />
-              <Route path="/vote/section" component={SectionVote} />
+              <Route exact path="/vote/section" component={SectionVote} />
             </Switch>
           </div>
         </div>
